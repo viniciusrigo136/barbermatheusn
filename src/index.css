@@ -1,0 +1,113 @@
+
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer base {
+      :root {
+        --background: 0 0% 3.9%; /* Preto */
+        --foreground: 0 0% 98%; /* Branco */
+
+        --card: 0 0% 3.9%;
+        --card-foreground: 0 0% 98%;
+
+        --popover: 0 0% 3.9%;
+        --popover-foreground: 0 0% 98%;
+
+        --primary: 45 100% 51%; /* Dourado */
+        --primary-foreground: 0 0% 9%;
+
+        --secondary: 0 0% 14.9%; /* Cinza Escuro */
+        --secondary-foreground: 0 0% 98%;
+
+        --muted: 0 0% 14.9%;
+        --muted-foreground: 0 0% 63.9%;
+
+        --accent: 0 0% 14.9%;
+        --accent-foreground: 0 0% 98%;
+
+        --destructive: 0 84.2% 60.2%; /* Vermelho */
+        --destructive-foreground: 0 0% 98%;
+
+        --border: 0 0% 14.9%;
+        --input: 0 0% 14.9%;
+        --ring: 45 100% 51%; /* Dourado */
+
+        --radius: 0.5rem;
+      }
+
+      .dark {
+        /* Mantendo as mesmas cores para o modo escuro, já que o design base é escuro */
+        --background: 0 0% 3.9%;
+        --foreground: 0 0% 98%;
+
+        --card: 0 0% 3.9%;
+        --card-foreground: 0 0% 98%;
+
+        --popover: 0 0% 3.9%;
+        --popover-foreground: 0 0% 98%;
+
+        --primary: 45 100% 51%;
+        --primary-foreground: 0 0% 9%;
+
+        --secondary: 0 0% 14.9%;
+        --secondary-foreground: 0 0% 98%;
+
+        --muted: 0 0% 14.9%;
+        --muted-foreground: 0 0% 63.9%;
+
+        --accent: 0 0% 14.9%;
+        --accent-foreground: 0 0% 98%;
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+
+        --border: 0 0% 14.9%;
+        --input: 0 0% 14.9%;
+        --ring: 45 100% 51%;
+      }
+    }
+
+    @layer base {
+      * {
+        @apply border-border;
+      }
+      body {
+        @apply bg-background text-foreground;
+        font-family: 'Roboto', sans-serif; /* Exemplo de tipografia moderna */
+      }
+      h1, h2, h3, h4, h5, h6 {
+        @apply font-bold;
+      }
+      h1 {
+        @apply text-4xl md:text-5xl; /* Tipografia impactante */
+      }
+      h2 {
+        @apply text-3xl md:text-4xl;
+      }
+      p {
+        @apply text-base md:text-lg;
+      }
+    }
+
+    /* Custom scrollbar (optional, for aesthetics) */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: hsl(var(--background));
+    }
+    ::-webkit-scrollbar-thumb {
+      background: hsl(var(--primary));
+      border-radius: var(--radius);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: hsl(var(--primary) / 0.8);
+    }
+
+    /* For Firefox */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(var(--primary)) hsl(var(--background));
+    }
+  

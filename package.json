@@ -20,7 +20,10 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
+<<<<<<< HEAD
     "@supabase/supabase-js": "^2.49.8",
+=======
+>>>>>>> 1617266da4b6a7fbc2b7992bd016085e8ef7b547
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",

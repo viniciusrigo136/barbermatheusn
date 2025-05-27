@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+<<<<<<< HEAD
 import { supabase } from '../lib/supabaseClient';
+=======
+>>>>>>> 1617266da4b6a7fbc2b7992bd016085e8ef7b547
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Trash2, LogOut, Edit2 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -28,6 +31,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+<<<<<<< HEAD
     const fetchAppointments = async () => {
       try {
         const { data, error } = await supabase
@@ -38,6 +42,17 @@ const AdminDashboard = () => {
         if (error) throw error;
 
         setAppointments(data);
+=======
+    const fetchAppointments = () => {
+      try {
+        const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
+        const sortedAppointments = storedAppointments.sort((a, b) => {
+          const dateA = new Date(`${a.date}T${a.time || '00:00'}`);
+          const dateB = new Date(`${b.date}T${b.time || '00:00'}`);
+          return dateA - dateB;
+        });
+        setAppointments(sortedAppointments);
+>>>>>>> 1617266da4b6a7fbc2b7992bd016085e8ef7b547
       } catch (error) {
         console.error("Erro ao buscar agendamentos:", error);
         toast({
@@ -49,6 +64,7 @@ const AdminDashboard = () => {
         setIsLoading(false);
       }
     };
+<<<<<<< HEAD
 
     fetchAppointments();
   }, [toast]);
@@ -64,6 +80,16 @@ const AdminDashboard = () => {
 
       setAppointments(appointments.filter(app => app.id !== id));
 
+=======
+    fetchAppointments();
+  }, [toast]);
+
+  const handleDeleteAppointment = (indexToDelete) => {
+    try {
+      const updatedAppointments = appointments.filter((_, index) => index !== indexToDelete);
+      localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+      setAppointments(updatedAppointments);
+>>>>>>> 1617266da4b6a7fbc2b7992bd016085e8ef7b547
       toast({
         title: "Sucesso!",
         description: `Agendamento removido.`,
@@ -81,7 +107,11 @@ const AdminDashboard = () => {
 
   const handleEdit = (index) => {
     setEditingIndex(index);
+<<<<<<< HEAD
     setEditingData(appointments.find(app => app.id === id));
+=======
+    setEditingData(appointments[index]);
+>>>>>>> 1617266da4b6a7fbc2b7992bd016085e8ef7b547
   };
 
   const handleEditChange = (e) => {
@@ -89,6 +119,7 @@ const AdminDashboard = () => {
     setEditingData({ ...editingData, [name]: value });
   };
 
+<<<<<<< HEAD
   const saveEdit = async () => {
     try {
       const { error } = await supabase
@@ -118,6 +149,19 @@ const AdminDashboard = () => {
         variant: "destructive",
       });
     }
+=======
+  const saveEdit = () => {
+    const updatedAppointments = [...appointments];
+    updatedAppointments[editingIndex] = editingData;
+    localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+    setAppointments(updatedAppointments);
+    setEditingIndex(null);
+    toast({
+      title: "Sucesso!",
+      description: `Agendamento atualizado.`,
+      variant: "default",
+    });
+>>>>>>> 1617266da4b6a7fbc2b7992bd016085e8ef7b547
   };
 
   const formatDate = (dateString) => {
@@ -250,7 +294,11 @@ const AdminDashboard = () => {
                             <AlertDialogFooter>
                               <AlertDialogCancel className="border-primary text-primary hover:bg-primary/10">Cancelar</AlertDialogCancel>
                               <AlertDialogAction
+<<<<<<< HEAD
                                 onClick={() => handleDeleteAppointment(app.id)}
+=======
+                                onClick={() => handleDeleteAppointment(index)}
+>>>>>>> 1617266da4b6a7fbc2b7992bd016085e8ef7b547
                                 className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
                               >
                                 Excluir

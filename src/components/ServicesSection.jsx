@@ -17,7 +17,11 @@ import React from 'react';
         icon: <BeardIcon className="h-10 w-10 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />,
         title: 'Barba',
         description: 'Aparar, alinhar e hidratar.',
+<<<<<<< HEAD
         price: 20,
+=======
+        price: 10,
+>>>>>>> 1617266da4b6a7fbc2b7992bd016085e8ef7b547
       },
       {
         id: 'bigode',

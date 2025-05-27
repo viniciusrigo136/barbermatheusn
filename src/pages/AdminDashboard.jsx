@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { supabase } from '../lib/supabaseClient';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Trash2, LogOut, Edit2 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -27,15 +28,16 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAppointments = () => {
+    const fetchAppointments = async () => {
       try {
-        const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
-        const sortedAppointments = storedAppointments.sort((a, b) => {
-          const dateA = new Date(`${a.date}T${a.time || '00:00'}`);
-          const dateB = new Date(`${b.date}T${b.time || '00:00'}`);
-          return dateA - dateB;
-        });
-        setAppointments(sortedAppointments);
+        const { data, error } = await supabase
+          .from('agendamentos')
+          .select('*')
+          .order('date', { ascending: true });
+
+        if (error) throw error;
+
+        setAppointments(data);
       } catch (error) {
         console.error("Erro ao buscar agendamentos:", error);
         toast({
@@ -47,14 +49,21 @@ const AdminDashboard = () => {
         setIsLoading(false);
       }
     };
+
     fetchAppointments();
   }, [toast]);
 
-  const handleDeleteAppointment = (indexToDelete) => {
+  const handleDeleteAppointment = async (id) => {
     try {
-      const updatedAppointments = appointments.filter((_, index) => index !== indexToDelete);
-      localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
-      setAppointments(updatedAppointments);
+      const { error } = await supabase
+        .from('agendamentos')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setAppointments(appointments.filter(app => app.id !== id));
+
       toast({
         title: "Sucesso!",
         description: `Agendamento removido.`,
@@ -72,7 +81,7 @@ const AdminDashboard = () => {
 
   const handleEdit = (index) => {
     setEditingIndex(index);
-    setEditingData(appointments[index]);
+    setEditingData(appointments.find(app => app.id === id));
   };
 
   const handleEditChange = (e) => {
@@ -80,17 +89,35 @@ const AdminDashboard = () => {
     setEditingData({ ...editingData, [name]: value });
   };
 
-  const saveEdit = () => {
-    const updatedAppointments = [...appointments];
-    updatedAppointments[editingIndex] = editingData;
-    localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
-    setAppointments(updatedAppointments);
-    setEditingIndex(null);
-    toast({
-      title: "Sucesso!",
-      description: `Agendamento atualizado.`,
-      variant: "default",
-    });
+  const saveEdit = async () => {
+    try {
+      const { error } = await supabase
+        .from('agendamentos')
+        .update(editingData)
+        .eq('id', editingData.id);
+
+      if (error) throw error;
+
+      const updatedAppointments = appointments.map(app =>
+        app.id === editingData.id ? editingData : app
+      );
+
+      setAppointments(updatedAppointments);
+      setEditingIndex(null);
+
+      toast({
+        title: "Sucesso!",
+        description: `Agendamento atualizado.`,
+        variant: "default",
+      });
+    } catch (error) {
+      console.error("Erro ao atualizar agendamento:", error);
+      toast({
+        title: "Erro",
+        description: "Não foi possível atualizar o agendamento.",
+        variant: "destructive",
+      });
+    }
   };
 
   const formatDate = (dateString) => {
@@ -223,7 +250,7 @@ const AdminDashboard = () => {
                             <AlertDialogFooter>
                               <AlertDialogCancel className="border-primary text-primary hover:bg-primary/10">Cancelar</AlertDialogCancel>
                               <AlertDialogAction
-                                onClick={() => handleDeleteAppointment(index)}
+                                onClick={() => handleDeleteAppointment(app.id)}
                                 className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
                               >
                                 Excluir

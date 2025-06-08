@@ -30,10 +30,17 @@ import React from 'react';
               </Link>
             </nav>
             <p className="text-sm">
+<<<<<<< HEAD
               &copy; {currentYear} Barbearia Balen. Todos os direitos reservados.
             </p>
             <p className="text-sm">
               &copy; {currentYear} Dúvidas 49-99941-6011
+=======
+              &copy; {currentYear} Barbearia Moderna. Todos os direitos reservados.
+            </p>
+            <p className="text-xs mt-2">
+              Criado com <span className="text-primary">❤</span> por Hostinger Horizons
+>>>>>>> 307d3833ef302c6b9711686b3eb921c13b7f12e4
             </p>
           </div>
         </motion.footer>

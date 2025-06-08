@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useMemo } from 'react';
     import { Button } from '@/components/ui/button';
     import { Input } from '@/components/ui/input';
@@ -171,6 +172,39 @@ import React, { useState, useEffect, useMemo } from 'react';
         return allTimeSlots.filter(slot => !bookedSlots.includes(slot));
       }, [bookedSlots]);
 
+=======
+import React from 'react';
+    import { Button } from '@/components/ui/button';
+    import { motion } from 'framer-motion';
+    import { servicesList } from './ServicesSection';
+    import FormField from './appointment-form/FormField';
+    import ServiceSelector from './appointment-form/ServiceSelector';
+    import DateTimeSelector from './appointment-form/DateTimeSelector';
+    import { useAppointmentForm } from './appointment-form/hooks/useAppointmentForm';
+    import { useBookedSlots } from './appointment-form/hooks/useBookedSlots';
+    import { useAppointmentSubmit } from './appointment-form/hooks/useAppointmentSubmit';
+    
+    const AppointmentForm = () => {
+      const {
+        formData,
+        errors,
+        setErrors,
+        handleChange,
+        handleTimeChange,
+        handleServiceChange,
+        resetForm
+      } = useAppointmentForm();
+
+      const { bookedSlots, availableTimeSlots, refreshBookedSlots } = useBookedSlots(formData.date);
+      
+      const { isSubmitting, handleSubmit } = useAppointmentSubmit(
+        formData, 
+        bookedSlots, 
+        resetForm,
+        refreshBookedSlots 
+      );
+      
+>>>>>>> 307d3833ef302c6b9711686b3eb921c13b7f12e4
       return (
         <section id="appointment-form" className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-6">
@@ -184,13 +218,18 @@ import React, { useState, useEffect, useMemo } from 'react';
               Agende seu Horário
             </motion.h2>
             <motion.form 
+<<<<<<< HEAD
               onSubmit={handleSubmit} 
+=======
+              onSubmit={(e) => handleSubmit(e, setErrors)} 
+>>>>>>> 307d3833ef302c6b9711686b3eb921c13b7f12e4
               className="max-w-lg mx-auto space-y-6 bg-secondary p-8 rounded-lg shadow-xl border border-primary/20"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
+<<<<<<< HEAD
               <div>
                 <Label htmlFor="name" className="text-foreground">Nome</Label>
                 <Input 
@@ -236,6 +275,37 @@ import React, { useState, useEffect, useMemo } from 'react';
                 </div>
                 {errors.services && <p className="text-destructive text-sm mt-1">{errors.services}</p>}
               </div>
+=======
+              <FormField
+                id="name"
+                name="name"
+                label="Nome"
+                value={formData.name}
+                onChange={handleChange}
+                error={errors.name}
+                placeholder="Seu nome completo"
+                disabled={isSubmitting}
+              />
+              <FormField
+                id="phone"
+                name="phone"
+                label="Telefone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleChange}
+                error={errors.phone}
+                placeholder="(XX) XXXXX-XXXX"
+                disabled={isSubmitting}
+              />
+              
+              <ServiceSelector
+                services={servicesList}
+                selectedServices={formData.services}
+                onServiceChange={handleServiceChange}
+                error={errors.services}
+                disabled={isSubmitting}
+              />
+>>>>>>> 307d3833ef302c6b9711686b3eb921c13b7f12e4
 
               {formData.totalValue > 0 && (
                 <div className="mt-4 text-right">
@@ -245,6 +315,7 @@ import React, { useState, useEffect, useMemo } from 'react';
                 </div>
               )}
 
+<<<<<<< HEAD
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <Label htmlFor="date" className="text-foreground">Data (Segundas e Terças)</Label>
@@ -292,6 +363,21 @@ import React, { useState, useEffect, useMemo } from 'react';
               </div>
               <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 transition-transform transform hover:scale-105 duration-300 ease-in-out">
                 Confirmar Agendamento
+=======
+              <DateTimeSelector
+                date={formData.date}
+                time={formData.time}
+                onDateChange={handleChange}
+                onTimeChange={handleTimeChange}
+                dateError={errors.date}
+                timeError={errors.time}
+                availableTimeSlots={availableTimeSlots}
+                disabled={isSubmitting}
+              />
+             
+              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 transition-transform transform hover:scale-105 duration-300 ease-in-out" disabled={isSubmitting}>
+                {isSubmitting ? 'Agendando...' : 'Confirmar Agendamento'}
+>>>>>>> 307d3833ef302c6b9711686b3eb921c13b7f12e4
               </Button>
             </motion.form>
           </div>

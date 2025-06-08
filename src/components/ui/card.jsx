@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 
     import React from 'react';
+=======
+import React from 'react';
+>>>>>>> 307d3833ef302c6b9711686b3eb921c13b7f12e4
     import { cn } from '@/lib/utils';
 
     const Card = React.forwardRef(({ className, ...props }, ref) => (
@@ -47,5 +51,9 @@
     ))
     CardFooter.displayName = "CardFooter"
 
+<<<<<<< HEAD
     export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
   
+=======
+    export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+>>>>>>> 307d3833ef302c6b9711686b3eb921c13b7f12e4

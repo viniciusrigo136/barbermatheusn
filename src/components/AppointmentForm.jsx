@@ -13,7 +13,7 @@ import React, { useState, useEffect, useMemo } from 'react';
       const morningStart = 7.5 * 60; 
       const morningEnd = 11.5 * 60;
       const afternoonStart = 13.5 * 60;
-      const afternoonEnd = 18 * 60;
+      const afternoonEnd = 20 * 60;
       const interval = 30;
 
       for (let time = morningStart; time <= morningEnd; time += interval) {

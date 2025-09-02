@@ -11,14 +11,14 @@ export const servicesList = [
     icon: <CutIcon className="h-10 w-10 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />,
     title: 'Corte de Cabelo',
     description: 'Estilo na medida: clássico ou moderno.',
-    price: 25,
+    price: 30,
   },
   {
     id: 'barba',
     icon: <BeardIcon className="h-10 w-10 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />,
     title: 'Barba',
     description: 'Aparar, alinhar e hidratar.',
-    price: 20,  // aqui mantive 20, mas você pode mudar.
+    price: 30,  // aqui mantive 20, mas você pode mudar.
   },
   {
     id: 'bigode',
@@ -124,21 +124,21 @@ export default ServicesSection;
         icon: <CutIcon className="h-10 w-10 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />,
         title: 'Corte de Cabelo',
         description: 'Estilo na medida: clássico ou moderno.',
-        price: 25,
+        price: 30,
       },
       {
         id: 'barba',
         icon: <BeardIcon className="h-10 w-10 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />,
         title: 'Barba',
         description: 'Aparar, alinhar e hidratar.',
-        price: 25,
+        price: 30,
       },
       {
         id: 'corte_barba',
         icon: <ComboIcon className="h-10 w-10 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />,
         title: 'Cabelo e Barba',
         description: 'Combo completo para um visual impecável.',
-        price: 45,
+        price: 50,
       },
       {
         id: 'sobrancelha',
